@@ -5,8 +5,8 @@ resource "aws_db_instance" "main" {
   engine                 = var.engine
   engine_version         = var.engine_version
   instance_class         = var.instance_class
-  password               = "ExpenseApp@1"
-  username               = "root"
+  password               = jsondecode(data.vault_generic_secret.rds.data_json).password
+  username               = jsondecode(data.vault_generic_secret.rds.data_json).username
   parameter_group_name   = aws_db_parameter_group.main.name
   skip_final_snapshot    = true
   db_subnet_group_name   = aws_db_subnet_group.main.name
